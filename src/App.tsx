@@ -3,12 +3,14 @@ import "./icons"
 
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import "url-search-params-polyfill"
 
 import Login from 'components/Login'
 import PlaylistTable from "components/PlaylistTable"
 import { getQueryParam } from "helpers"
 import Logout from "components/Logout"
+import FilterSliders from 'components/FilterSliders'
 
 function App() {
   let view
@@ -21,7 +23,10 @@ function App() {
       <p style={{ marginTop: "50px" }}>It should still be possible to export individual playlists, particularly when using your own Spotify application.</p>
     </div>
   } else if (key.has('access_token')) {
-    view = <PlaylistTable accessToken={key.get('access_token')} />
+    view = <div>
+      <FilterSliders />
+      <PlaylistTable accessToken={key.get('access_token')} />
+    </div>
   } else {
     view = <Login />
   }
@@ -31,15 +36,20 @@ function App() {
       <header className="App-header">
         { key.has('access_token') && <Logout /> }
         <h1>
-          <FontAwesomeIcon icon={['fab', 'spotify']} color="#84BD00" size="sm" /> <a href={process.env.PUBLIC_URL}>Exportify</a>
+          <FontAwesomeIcon icon={['fab', 'spotify']} color="#84BD00" size="sm" /> <a href={process.env.PUBLIC_URL}>Pumpify</a>
         </h1>
 
         <p id="subtitle" className="lead text-secondary">
-          Export your Spotify playlists.
+          Create Spotify playlist from Liked Songs to get Pumped
         </p>
       </header>
 
       {view}
+      <footer className="App-footer">
+        <p id="subtitle" className="lead text-secondary">
+          Based on<a href="https://watsonbox.github.io/exportify/" target="_blank"> Exportify by Watsonbox</a> 
+        </p>
+      </footer>
     </div>
   );
 }

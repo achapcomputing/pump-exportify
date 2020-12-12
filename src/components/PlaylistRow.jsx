@@ -53,9 +53,9 @@ class PlaylistRow extends React.Component {
         <td>{this.renderTickCross(playlist.public)}</td>
         <td>{this.renderTickCross(playlist.collaborative)}</td>
         <td className="text-right">
-          <Button type="submit" variant="primary" size="xs" onClick={this.exportPlaylist} className="text-nowrap">
+          {/* <Button type="submit" variant="primary" size="xs" onClick={this.exportPlaylist} className="text-nowrap">
             <FontAwesomeIcon icon={['fas', 'download']} size="sm" /> Export
-          </Button>
+          </Button> */}
         </td>
       </tr>
     );

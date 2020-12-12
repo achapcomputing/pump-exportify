@@ -5,12 +5,13 @@ import { getQueryParam } from "helpers"
 
 class Login extends React.Component {
   authorize() {
+    // let clientId = "b8267324f80b4a9b9ba8c410e566b844"
     let clientId = getQueryParam("app_client_id")
     let changeUser = getQueryParam("change_user") !== ""
 
     // Use Exportify application clientId if none given
     if (clientId === '') {
-      clientId = "9950ac751e34487dbbe027c4fd7f8e99"
+      clientId = "b8267324f80b4a9b9ba8c410e566b844"
     }
 
     window.location.href = "https://accounts.spotify.com/authorize" +

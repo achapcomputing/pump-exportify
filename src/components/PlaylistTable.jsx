@@ -219,7 +219,7 @@ class PlaylistTable extends React.Component {
                 <th style={{width: "120px"}}>Public?</th>
                 <th style={{width: "120px"}}>Collaborative?</th>
                 <th style={{width: "100px"}} className="text-right">
-                  <PlaylistsExporter
+                  {/* <PlaylistsExporter
                     accessToken={this.props.accessToken}
                     onPlaylistsExportDone={this.handlePlaylistsExportDone}
                     onPlaylistExportStarted={this.handlePlaylistExportStarted}
@@ -227,7 +227,7 @@ class PlaylistTable extends React.Component {
                     likedSongs={this.state.likedSongs}
                     config={this.state.config}
                     disabled={this.state.searching}
-                  />
+                  /> */}
                 </th>
               </tr>
             </thead>
