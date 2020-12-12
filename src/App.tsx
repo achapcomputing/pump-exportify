@@ -8,6 +8,7 @@ import "url-search-params-polyfill"
 
 import Login from 'components/Login'
 import PlaylistTable from "components/PlaylistTable"
+import SongTable from "components/SongTable"
 import { getQueryParam } from "helpers"
 import Logout from "components/Logout"
 import FilterSliders from 'components/FilterSliders'
@@ -25,6 +26,7 @@ function App() {
   } else if (key.has('access_token')) {
     view = <div>
       <FilterSliders />
+      <SongTable accessToken={key.get('access_token')} />
       <PlaylistTable accessToken={key.get('access_token')} />
     </div>
   } else {
@@ -45,6 +47,7 @@ function App() {
       </header>
 
       {view}
+
       <footer className="App-footer">
         <p id="subtitle" className="lead text-secondary">
           Based on<a href="https://watsonbox.github.io/exportify/" target="_blank"> Exportify by Watsonbox</a> 

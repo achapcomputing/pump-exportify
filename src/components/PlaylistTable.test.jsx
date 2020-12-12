@@ -49,12 +49,12 @@ test("playlist loading", async () => {
 })
 
 test("redirecting when access token is invalid", async () => {
-  window.location = { href: "http://www.example.com/exportify#access_token=INVALID_ACCESS_TOKEN" }
+  window.location = { href: "http://www.example.com/pumpify#access_token=INVALID_ACCESS_TOKEN" }
 
   render(<PlaylistTable accessToken="INVALID_ACCESS_TOKEN" />)
 
   await waitFor(() => {
-    expect(window.location.href).toBe("http://www.example.com/exportify")
+    expect(window.location.href).toBe("http://www.example.com/pumpify")
   })
 })
 

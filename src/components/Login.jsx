@@ -9,7 +9,7 @@ class Login extends React.Component {
     let clientId = getQueryParam("app_client_id")
     let changeUser = getQueryParam("change_user") !== ""
 
-    // Use Exportify application clientId if none given
+    // Use Pumpify application clientId if none given
     if (clientId === '') {
       clientId = "b8267324f80b4a9b9ba8c410e566b844"
     }
