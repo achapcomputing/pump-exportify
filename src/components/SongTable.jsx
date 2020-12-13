@@ -17,8 +17,8 @@ class SongTable extends React.Component {
   state = {
     initialized: false,
     searching: false,
-    playlists: [],
-    playlistCount: 0,
+    songs: [],
+    songCount: 0,
     likedSongs: {
       limit: 0,
       count: 0

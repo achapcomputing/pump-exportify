@@ -12,6 +12,7 @@ import SongTable from "components/SongTable"
 import { getQueryParam } from "helpers"
 import Logout from "components/Logout"
 import FilterSliders from 'components/FilterSliders'
+import PumpPlaylistGenerator from 'components/PumpPlaylistGenerator';
 
 function App() {
   let view
@@ -25,9 +26,9 @@ function App() {
     </div>
   } else if (key.has('access_token')) {
     view = <div>
-      <FilterSliders />
-      <SongTable accessToken={key.get('access_token')} />
-      <PlaylistTable accessToken={key.get('access_token')} />
+      <PumpPlaylistGenerator accessToken={key.get('access_token')} />
+      {/* <SongTable accessToken={key.get('access_token')} /> */}
+      {/* <PlaylistTable accessToken={key.get('access_token')} /> */}
     </div>
   } else {
     view = <Login />
@@ -42,7 +43,7 @@ function App() {
         </h1>
 
         <p id="subtitle" className="lead text-secondary">
-          Create Spotify playlist from Liked Songs to get Pumped
+          Create Spotify playlist from your Liked Songs to get Pumped
         </p>
       </header>
 

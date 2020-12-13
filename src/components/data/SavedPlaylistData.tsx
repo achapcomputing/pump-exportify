@@ -1,22 +1,22 @@
 import { apiCall } from "helpers"
 
-// Handles cached loading of all or subsets of song data
-class SongsData {
+// Handles cached loading of all or subsets of playlist data
+class SavedPlaylistData {
   PLAYLIST_LIMIT = 50
   SEARCH_LIMIT = 20
 
   userId: string
   private accessToken: string
-  private onSongsLoadingStarted?: () => void
-  private onSongsLoadingDone?: () => void
+  private onPlaylistsLoadingStarted?: () => void
+  private onPlaylistsLoadingDone?: () => void
   private data: any[]
   private dataInitialized = false
 
-  constructor(accessToken: string, userId: string, onSongsLoadingStarted?: () => void, onSongsLoadingDone?: () => void) {
+  constructor(accessToken: string, userId: string, onPlaylistsLoadingStarted?: () => void, onPlaylistsLoadingDone?: () => void) {
     this.accessToken = accessToken
     this.userId = userId
-    this.onSongsLoadingStarted = onSongsLoadingStarted
-    this.onSongsLoadingDone = onSongsLoadingDone
+    this.onPlaylistsLoadingStarted = onPlaylistsLoadingStarted
+    this.onPlaylistsLoadingDone = onPlaylistsLoadingDone
     this.data = []
   }
 
@@ -41,7 +41,7 @@ class SongsData {
   async search(query: string) {
     await this.loadAll()
 
-    // Case-insensitive search in song name
+    // Case-insensitive search in playlist name
     // TODO: Add lazy evaluation for performance?
     return this.data
       .filter(p => p.name.toLowerCase().includes(query.toLowerCase()))
@@ -49,8 +49,8 @@ class SongsData {
   }
 
   async loadAll() {
-    if (this.onSongsLoadingStarted) {
-      this.onSongsLoadingStarted()
+    if (this.onPlaylistsLoadingStarted) {
+      this.onPlaylistsLoadingStarted()
     }
 
     await this.loadSlice()
@@ -60,8 +60,8 @@ class SongsData {
       await this.loadSlice(offset, offset + this.PLAYLIST_LIMIT)
     }
 
-    if (this.onSongsLoadingDone) {
-      this.onSongsLoadingDone()
+    if (this.onPlaylistsLoadingDone) {
+      this.onPlaylistsLoadingDone()
     }
   }
 
@@ -74,19 +74,20 @@ class SongsData {
       }
     }
 
-    const songsUrl = `https://api.spotify.com/v1/users/${this.userId}/songs?offset=${start}&limit=${end-start}`
-    const songsResponse = await apiCall(songsUrl, this.accessToken)
-    const songsData = songsResponse.data
+    const playlistsUrl = `https://api.spotify.com/v1/me/tracks/offset=${start}&limit=${end-start}`  
+    // const playlistsUrl = `https://api.spotify.com/v1/users/${this.userId}/playlists?offset=${start}&limit=${end-start}`
+    const playlistsResponse = await apiCall(playlistsUrl, this.accessToken)
+    const playlistsData = playlistsResponse.data
 
     if (!this.dataInitialized) {
-      this.data = Array(songsData.total).fill(null)
+      this.data = Array(playlistsData.total).fill(null)
       this.dataInitialized = true
     }
 
-    this.data.splice(start, songsData.items.length, ...songsData.items)
+    this.data.splice(start, playlistsData.items.length, ...playlistsData.items)
 
-    return songsData.items
+    return playlistsData.items
   }
 }
 
-export default SongsData
+export default SavedPlaylistData

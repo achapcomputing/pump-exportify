@@ -17,7 +17,7 @@ class Login extends React.Component {
     window.location.href = "https://accounts.spotify.com/authorize" +
       "?client_id=" + clientId +
       "&redirect_uri=" + encodeURIComponent([window.location.protocol, '//', window.location.host, window.location.pathname].join('')) +
-      "&scope=playlist-read-private%20playlist-read-collaborative%20user-library-read" +
+      "&scope=user-library-read%20playlist-modify-public" +
       "&response_type=token" +
       "&show_dialog=" + changeUser;
   }
