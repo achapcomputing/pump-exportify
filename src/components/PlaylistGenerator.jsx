@@ -1,7 +1,8 @@
 import '../App.scss'
+import '../index.scss'
 
 import React, { useState } from 'react';
-import { Button, Container, Row, Col } from "react-bootstrap"
+import { Button, Container, Row, Col, Spinner } from "react-bootstrap"
 import RangeSlider from 'react-bootstrap-range-slider';
 import SpotifyWebApi from 'spotify-web-api-js';
 
@@ -18,10 +19,12 @@ const PlaylistGenerator = () => {
     const [ tempoValue, setTempoValue ] = useState(tempoFilter);
     const [ playlistLinkId, setPlaylistLinkId ] = useState(playlistId);
     const [ playlistCreated, setPlaylistCreated ] = useState(false);
+    const [ playlistLoading, setPlaylistLoading ] = useState(false);
+    const [ playlistLength, setPlaylistLength ] = useState(0);
 
     var userId = "";
     var playlistId = "";
-    var totalSaved = 0;
+    var totalSaved = 3000;
     var savedTracks = [];
     var filteredUris = [];
 
@@ -59,7 +62,7 @@ const PlaylistGenerator = () => {
 
     async function getMySavedTracks() {
         const offset = 50;
-        for (var i = 0; i < 2000; i += offset) {
+        for (var i = 0; i < totalSaved; i += offset) {
           await spotifyApi.getMySavedTracks({ limit: offset, offset: i })
             .then((response) => {
               totalSaved = response.total
@@ -144,6 +147,8 @@ const PlaylistGenerator = () => {
     }
     
     async function generatePlaylist() {
+        setPlaylistLoading(true);
+        setPlaylistCreated(false);
         await getMyUserId();
         // get saved songs
         await getMySavedTracks()
@@ -156,7 +161,9 @@ const PlaylistGenerator = () => {
             setPlaylistLinkId(playlistId);
         }
         if (filteredUris.length > 0) {
+            setPlaylistLoading(false);
             setPlaylistCreated(true);
+            setPlaylistLength(filteredUris.length);
         }
         console.log("help! " + playlistId)
     }
@@ -172,6 +179,7 @@ const PlaylistGenerator = () => {
                             min={0}
                             max={10}
                             tooltip='off'
+                            variant="secondary"
                         />
                     </Col>
                     <Col md="4" text-align="right">Minimum Energy Rating: {energyValue / 10.0}</Col>
@@ -184,6 +192,7 @@ const PlaylistGenerator = () => {
                             min={0}
                             max={10}
                             tooltip='off'
+                            variant='secondary'
                         />
                     </Col>
                     <Col md="4" text-align="right">Minimum Danceability Rating: {danceValue / 10.0}</Col>
@@ -196,25 +205,34 @@ const PlaylistGenerator = () => {
                             min={0}
                             max={200}
                             tooltip='off'
+                            variant='secondary'
                         />
                     </Col>
                     <Col md="4" text-align="right">Minimum Tempo: {tempoValue} bpm</Col>
                 </Row>
             </Container>
 
-            <Container fluid className="Generate">
+            <Container className="Generate">
                 <Row>
                     <Button id="createButton" variant="outline-secondary" onClick={() => generatePlaylist()}>Generate Playlist</Button>
                 </Row>
-                <Row>
+                <Row className="center">
+                    {
+                        playlistLoading &&
+                        <Spinner animation="grow" variant='primary' />
+                    }
                     {
                         playlistCreated && playlistLinkId &&
-                        <p id="playlistLink" className="lead text-secondary" position="relative">
-                            <a href={`https://open.spotify.com/playlist/${playlistLinkId}`} target="_blank">Playlist Created!</a>
-                        </p>
+                        <div>
+                            <p className="lead text-secondary">
+                                <a href={`https://open.spotify.com/playlist/${playlistLinkId}`} target="_blank">Playlist Created!</a>
+                            </p>
+                            <p className="text-secondary">
+                                {playlistLength} Songs Added
+                            </p>                            
+                        </div>
                     }
                 </Row>
-
             </Container>
 
         </div>
