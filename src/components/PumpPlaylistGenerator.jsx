@@ -1,8 +1,6 @@
 import React from "react"
 import { Button } from "react-bootstrap"
 import SpotifyWebApi from 'spotify-web-api-js';
-import FilterSliders from 'components/FilterSliders'
-// import { apiCall, apiCallErrorHandler } from "helpers"
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -12,6 +10,7 @@ class PumpPlaylistGenerator extends React.Component {
   energyFilter = 0.7;
   danceabilityFilter = 0.5;
   tempoFilter = 120;
+  callbackVal = 0;
 
   state = {
     userId: "",
@@ -121,7 +120,7 @@ class PumpPlaylistGenerator extends React.Component {
     await spotifyApi.createPlaylist(this.state.userId, 
     { 
       name: "API Playlist", 
-      description: `Liked Songs filtered by Energy: ${this.energyFilter}, Danceability: ${this.danceabilityFilter}, and Tempo: ${this.tempoFilter}.`,
+      description: `Liked Songs filtered by Energy: ${this.energyFilter}, Danceability: ${this.danceabilityFilter}, and Tempo: ${this.tempoFilter}. Created with https://achapcomputing.github.io/pump-exportify/`,
       public: true
     })
     .then((response) => {
@@ -166,8 +165,9 @@ class PumpPlaylistGenerator extends React.Component {
   render() {
     return (
       <div>
-          <FilterSliders />
-          <Button onClick={() => this.generatePlaylist()}>Generate Playlist</Button>
+
+        <Button onClick={() => this.generatePlaylist()}>Generate Playlist</Button>
+      
       </div>
     )
   }

@@ -12,7 +12,7 @@ import SongTable from "components/SongTable"
 import { getQueryParam } from "helpers"
 import Logout from "components/Logout"
 import FilterSliders from 'components/FilterSliders'
-import PumpPlaylistGenerator from 'components/PumpPlaylistGenerator';
+import PlaylistGenerator from 'components/PlaylistGenerator';
 
 function App() {
   let view
@@ -26,7 +26,8 @@ function App() {
     </div>
   } else if (key.has('access_token')) {
     view = <div>
-      <PumpPlaylistGenerator accessToken={key.get('access_token')} />
+      <PlaylistGenerator />
+      {/* <PumpPlaylistGenerator accessToken={key.get('access_token')} /> */}
       {/* <SongTable accessToken={key.get('access_token')} /> */}
       {/* <PlaylistTable accessToken={key.get('access_token')} /> */}
     </div>
@@ -51,7 +52,7 @@ function App() {
 
       <footer className="App-footer">
         <p id="subtitle" className="lead text-secondary">
-          Based on<a href="https://watsonbox.github.io/exportify/" target="_blank"> Exportify by Watsonbox</a> 
+          Based on <a href="https://watsonbox.github.io/exportify/" target="_blank">Exportify by Watsonbox</a> 
         </p>
       </footer>
     </div>
