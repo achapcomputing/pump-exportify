@@ -8,7 +8,6 @@ import "url-search-params-polyfill"
 
 import Login from 'components/Login'
 import PlaylistTable from "components/PlaylistTable"
-import SongTable from "components/SongTable"
 import { getQueryParam } from "helpers"
 import Logout from "components/Logout"
 import FilterSliders from 'components/FilterSliders'
@@ -44,7 +43,7 @@ function App() {
         </h1>
 
         <p id="subtitle" className="lead text-secondary">
-          Create Spotify playlist from your Liked Songs to get Pumped
+          Generating high-intensity playlists for the most pumped-up workout
         </p>
       </header>
 
