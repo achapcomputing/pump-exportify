@@ -1,3 +1,5 @@
+<a href="https://achapcomputing.github.io/pumpify/"><img src="pumpify-ui.png"/></a>
+
 Pumpify reads through your entire Saved/Liked songs library on Spotify and adds every song that meets minimum energy, danceability, and tempo requirements.
 
 ## Usage

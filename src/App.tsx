@@ -54,7 +54,7 @@ function App() {
           Based on <a href="https://watsonbox.github.io/exportify/" target="_blank">Exportify by Watsonbox</a> 
         </p>
         <p id="subtitle" className="lead text-secondary">
-          View <a href="https://github.com/achapcomputing/pumpify/tree/master" target="_blank">GitHub Repository</a> 
+          View <a href="https://github.com/achapcomputing/pumpify/" target="_blank">GitHub Repository</a> 
         </p>
       </footer>
     </div>
