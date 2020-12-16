@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/pumpify/static/css/main.ba3d98cf.chunk.css",
-    "main.js": "/pumpify/static/js/main.3f289f13.chunk.js",
-    "main.js.map": "/pumpify/static/js/main.3f289f13.chunk.js.map",
+    "main.css": "/pumpify/static/css/main.2f0adc7c.chunk.css",
+    "main.js": "/pumpify/static/js/main.50f68921.chunk.js",
+    "main.js.map": "/pumpify/static/js/main.50f68921.chunk.js.map",
     "runtime-main.js": "/pumpify/static/js/runtime-main.bdec3b0d.js",
     "runtime-main.js.map": "/pumpify/static/js/runtime-main.bdec3b0d.js.map",
     "static/css/2.0cd60f4c.chunk.css": "/pumpify/static/css/2.0cd60f4c.chunk.css",
@@ -12,14 +12,14 @@
     "static/js/3.687afebd.chunk.js.map": "/pumpify/static/js/3.687afebd.chunk.js.map",
     "index.html": "/pumpify/index.html",
     "static/css/2.0cd60f4c.chunk.css.map": "/pumpify/static/css/2.0cd60f4c.chunk.css.map",
-    "static/css/main.ba3d98cf.chunk.css.map": "/pumpify/static/css/main.ba3d98cf.chunk.css.map",
+    "static/css/main.2f0adc7c.chunk.css.map": "/pumpify/static/css/main.2f0adc7c.chunk.css.map",
     "static/js/2.bc0289cc.chunk.js.LICENSE.txt": "/pumpify/static/js/2.bc0289cc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.bdec3b0d.js",
     "static/css/2.0cd60f4c.chunk.css",
     "static/js/2.bc0289cc.chunk.js",
-    "static/css/main.ba3d98cf.chunk.css",
-    "static/js/main.3f289f13.chunk.js"
+    "static/css/main.2f0adc7c.chunk.css",
+    "static/js/main.50f68921.chunk.js"
   ]
 }
