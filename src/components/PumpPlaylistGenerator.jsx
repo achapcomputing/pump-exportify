@@ -120,7 +120,7 @@ class PumpPlaylistGenerator extends React.Component {
     await spotifyApi.createPlaylist(this.state.userId, 
     { 
       name: "API Playlist", 
-      description: `Liked Songs filtered by Energy: ${this.energyFilter}, Danceability: ${this.danceabilityFilter}, and Tempo: ${this.tempoFilter}. Created with https://achapcomputing.github.io/pump-exportify/`,
+      description: `Liked Songs filtered by Energy: ${this.energyFilter}, Danceability: ${this.danceabilityFilter}, and Tempo: ${this.tempoFilter}. Created with https://achapcomputing.github.io/pumpify/`,
       public: true
     })
     .then((response) => {

@@ -2,7 +2,7 @@
   "name": "pumpify",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://achapcomputing.github.io/pump-exportify",
+  "homepage": "https://achapcomputing.github.io/pumpify/",
   "dependencies": {
     "@bugsnag/js": "^7.5.1",
     "@bugsnag/plugin-react": "^7.3.5",

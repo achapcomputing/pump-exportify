@@ -1,8 +1,8 @@
 import '../App.scss'
 import '../index.scss'
 
-import React, { useState } from 'react';
-import { Button, Container, Row, Col, Spinner } from "react-bootstrap"
+import React, { useState, createRef } from 'react';
+import { Button, Container, Row, Col, Spinner, Popover, OverlayTrigger, InputGroup, FormControl } from "react-bootstrap"
 import RangeSlider from 'react-bootstrap-range-slider';
 import SpotifyWebApi from 'spotify-web-api-js';
 
@@ -13,6 +13,7 @@ const PlaylistGenerator = () => {
     const energyFilter = 0.7;
     const danceabilityFilter = 0.5;
     const tempoFilter = 120;
+    const defaultPlaylistName = "Pumpify Playlist"
 
     const [ energyValue, setEnergyValue ] = useState(energyFilter * 10);
     const [ danceValue, setDanceValue ] = useState(danceabilityFilter * 10);
@@ -21,6 +22,8 @@ const PlaylistGenerator = () => {
     const [ playlistCreated, setPlaylistCreated ] = useState(false);
     const [ playlistLoading, setPlaylistLoading ] = useState(false);
     const [ playlistLength, setPlaylistLength ] = useState(0);
+    const [ playlistName, setPlaylistName ] = useState(defaultPlaylistName);
+    const playlistNameInputRef = createRef();
 
     var userId = "";
     var playlistId = "";
@@ -116,8 +119,8 @@ const PlaylistGenerator = () => {
     async function createPlaylist() {
         await spotifyApi.createPlaylist(userId, 
         { 
-            name: "API Playlist",
-            description: `Liked Songs filtered by Energy: ${energyValue / 10.0}, Danceability: ${danceValue / 10.0}, and Tempo: ${tempoValue}. Created with https://achapcomputing.github.io/pump-exportify/`,
+            name: playlistName,
+            description: `Liked Songs filtered by Energy: ${energyValue / 10.0}, Danceability: ${danceValue / 10.0}, and Tempo: ${tempoValue}. Created with https://achapcomputing.github.io/pumpify/`,
             public: true
         })
         .then((response) => {
@@ -182,7 +185,12 @@ const PlaylistGenerator = () => {
                             variant="secondary"
                         />
                     </Col>
-                    <Col md="4" text-align="right">Minimum Energy Rating: {energyValue / 10.0}</Col>
+                    <Col md="3" text-align="right">Minimum Energy Rating: {energyValue / 10.0}</Col>
+                    <Col md="1">
+                        <OverlayTrigger placement="right" overlay={energyPopover}>
+                            <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
+                        </OverlayTrigger>
+                    </Col>
                 </Row>
                 <Row>
                     <Col>
@@ -195,7 +203,14 @@ const PlaylistGenerator = () => {
                             variant='secondary'
                         />
                     </Col>
-                    <Col md="4" text-align="right">Minimum Danceability Rating: {danceValue / 10.0}</Col>
+                    <Col md="3" text-align="right">
+                        Minimum Danceability Rating: {danceValue / 10.0}
+                    </Col>
+                    <Col md="1">
+                        <OverlayTrigger placement="right" overlay={dancePopover}>
+                            <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
+                        </OverlayTrigger>
+                    </Col>
                 </Row>
                 <Row>
                     <Col>
@@ -208,13 +223,35 @@ const PlaylistGenerator = () => {
                             variant='secondary'
                         />
                     </Col>
-                    <Col md="4" text-align="right">Minimum Tempo: {tempoValue} bpm</Col>
+                    <Col md="3" text-align="right">Minimum Tempo: {tempoValue} bpm</Col>
+                    <Col md="1">
+                        <OverlayTrigger placement="right" overlay={tempoPopover}>
+                            <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
+                        </OverlayTrigger>
+                    </Col>
+                </Row>
+            </Container>
+
+            <Container>
+                <Row className="center">
+                    <InputGroup className="mb-3 w-50" >
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-addon1">Playlist Name</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl
+                            placeholder={defaultPlaylistName}
+                            aria-label={defaultPlaylistName}
+                            aria-describedby="basic-addon1"
+                            ref={playlistNameInputRef}
+                            onChange={() => setPlaylistName(playlistNameInputRef.current.value)}
+                        />
+                    </InputGroup>
                 </Row>
             </Container>
 
             <Container className="Generate">
                 <Row>
-                    <Button id="createButton" variant="outline-secondary" onClick={() => generatePlaylist()}>Generate Playlist</Button>
+                    <Button id="createButton" variant="outline-primary" onClick={() => generatePlaylist()} disabled={playlistLoading}>Generate Playlist</Button>
                 </Row>
                 <Row className="center">
                     {
@@ -238,5 +275,26 @@ const PlaylistGenerator = () => {
         </div>
     )
 };
+
+const energyPopover = (
+    <Popover>
+        <Popover.Title>Energy</Popover.Title>
+        <Popover.Content>Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.</Popover.Content>
+    </Popover>
+);
+
+const dancePopover = (
+    <Popover>
+        <Popover.Title>Danceability</Popover.Title>
+        <Popover.Content>Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.</Popover.Content>
+    </Popover>
+);
+
+const tempoPopover = (
+    <Popover>
+        <Popover.Title>Tempo</Popover.Title>
+        <Popover.Content>The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.</Popover.Content>
+    </Popover>
+);
 
 export default PlaylistGenerator;
