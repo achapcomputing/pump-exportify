@@ -175,7 +175,7 @@ const PlaylistGenerator = () => {
         <div>
             <Container fluid>
                 <Row>
-                    <Col>
+                    <Col sm="8">
                         <RangeSlider
                             value={energyValue}
                             onChange={e => setEnergyValue(e.target.value)}
@@ -185,15 +185,15 @@ const PlaylistGenerator = () => {
                             variant="secondary"
                         />
                     </Col>
-                    <Col md="3" text-align="right">Minimum Energy Rating: {energyValue / 10.0}</Col>
-                    <Col md="1">
+                    <Col sm="3" text-align="right">Minimum Energy Rating: {energyValue / 10.0}</Col>
+                    <Col sm="1">
                         <OverlayTrigger placement="right" overlay={energyPopover}>
                             <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
                         </OverlayTrigger>
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col sm="8">
                         <RangeSlider
                             value={danceValue}
                             onChange={e => setDanceValue(e.target.value)}
@@ -203,17 +203,17 @@ const PlaylistGenerator = () => {
                             variant='secondary'
                         />
                     </Col>
-                    <Col md="3" text-align="right">
+                    <Col sm="3" text-align="right">
                         Minimum Danceability Rating: {danceValue / 10.0}
                     </Col>
-                    <Col md="1">
+                    <Col sm="1">
                         <OverlayTrigger placement="right" overlay={dancePopover}>
                             <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
                         </OverlayTrigger>
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col sm="8">
                         <RangeSlider
                             value={tempoValue}
                             onChange={e => setTempoValue(e.target.value)}
@@ -223,8 +223,10 @@ const PlaylistGenerator = () => {
                             variant='secondary'
                         />
                     </Col>
-                    <Col md="3" text-align="right">Minimum Tempo: {tempoValue} bpm</Col>
-                    <Col md="1">
+                    <Col sm="3" text-align="right">
+                        Minimum Tempo: {tempoValue} bpm
+                    </Col>
+                    <Col sm="1">
                         <OverlayTrigger placement="right" overlay={tempoPopover}>
                             <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
                         </OverlayTrigger>
