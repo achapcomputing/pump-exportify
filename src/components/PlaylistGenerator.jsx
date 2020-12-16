@@ -232,7 +232,7 @@ const PlaylistGenerator = () => {
 
             <Container>
                 <Row className="center">
-                    <InputGroup className="mb-3 w-75" >
+                    <InputGroup className="mb-3 w-50" >
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-addon1">Playlist Name</InputGroup.Text>
                         </InputGroup.Prepend>
@@ -240,6 +240,7 @@ const PlaylistGenerator = () => {
                             placeholder={defaultPlaylistName}
                             aria-label={defaultPlaylistName}
                             aria-describedby="basic-addon1"
+                            className="w-75"
                             ref={playlistNameInputRef}
                             onChange={() => setPlaylistName(playlistNameInputRef.current.value)}
                         />
