@@ -221,7 +221,7 @@ const PlaylistGenerator = () => {
                             variant='secondary'
                         />
                     </Col>
-                    <Col sm="3" text-align="right">
+                    <Col sm="4" text-align="right">
                         Minimum Tempo: {tempoValue} bpm
                         <OverlayTrigger placement="right" overlay={tempoPopover}>
                             <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
@@ -232,7 +232,7 @@ const PlaylistGenerator = () => {
 
             <Container>
                 <Row className="center">
-                    <InputGroup className="mb-3 w-50" >
+                    <InputGroup className="mb-3 w-75" >
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-addon1">Playlist Name</InputGroup.Text>
                         </InputGroup.Prepend>
