@@ -185,8 +185,8 @@ const PlaylistGenerator = () => {
                             variant="secondary"
                         />
                     </Col>
-                    <Col sm="3" text-align="right">Minimum Energy Rating: {energyValue / 10.0}</Col>
-                    <Col sm="1">
+                    <Col sm="4" text-align="right">
+                        Minimum Energy Rating: {energyValue / 10.0}
                         <OverlayTrigger placement="right" overlay={energyPopover}>
                             <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
                         </OverlayTrigger>
@@ -203,10 +203,8 @@ const PlaylistGenerator = () => {
                             variant='secondary'
                         />
                     </Col>
-                    <Col sm="3" text-align="right">
+                    <Col sm="4" text-align="right">
                         Minimum Danceability Rating: {danceValue / 10.0}
-                    </Col>
-                    <Col sm="1">
                         <OverlayTrigger placement="right" overlay={dancePopover}>
                             <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
                         </OverlayTrigger>
@@ -225,8 +223,6 @@ const PlaylistGenerator = () => {
                     </Col>
                     <Col sm="3" text-align="right">
                         Minimum Tempo: {tempoValue} bpm
-                    </Col>
-                    <Col sm="1">
                         <OverlayTrigger placement="right" overlay={tempoPopover}>
                             <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
                         </OverlayTrigger>
