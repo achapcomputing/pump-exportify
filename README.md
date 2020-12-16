@@ -1,4 +1,4 @@
-Pumpify reads through your entire Saved/Liked songs library on Spotify and adds every song that meets minimum energy, danceability, and tempo requirements.
+Pumpify reads through your entire Saved/Liked songs library on Spotify and adds every song that meets minimum energy, danceability, and tempo requirements to a new playlist.
 
 ## Usage
 
