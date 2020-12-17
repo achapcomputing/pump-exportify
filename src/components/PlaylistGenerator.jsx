@@ -2,7 +2,7 @@ import '../App.scss'
 import '../index.scss'
 
 import React, { useState, createRef } from 'react';
-import { Button, Container, Row, Col, Spinner, Popover, OverlayTrigger, InputGroup, FormControl } from "react-bootstrap"
+import { Button, Container, Row, Col, Spinner, Popover, OverlayTrigger, InputGroup, FormControl, Accordion, Card } from "react-bootstrap"
 import RangeSlider from 'react-bootstrap-range-slider';
 import SpotifyWebApi from 'spotify-web-api-js';
 
@@ -23,6 +23,7 @@ const PlaylistGenerator = () => {
     const [ playlistLoading, setPlaylistLoading ] = useState(false);
     const [ playlistLength, setPlaylistLength ] = useState(0);
     const [ playlistName, setPlaylistName ] = useState(defaultPlaylistName);
+    const [ filterError, setFilterError ] = useState(false);
     const playlistNameInputRef = createRef();
 
     var userId = "";
@@ -56,7 +57,7 @@ const PlaylistGenerator = () => {
         spotifyApi.getMe()
           .then((response) => {
             userId = response.id;
-            console.log(userId);
+            console.log("Logged in user: " + userId);
         })
         .catch((err) => {
             console.error(err);
@@ -70,7 +71,6 @@ const PlaylistGenerator = () => {
             .then((response) => {
               totalSaved = response.total
               getTrackAudioFeatures(response.items);
-              console.log(response.offset);
             })
             .catch((err) => {
               console.error(err);
@@ -113,7 +113,7 @@ const PlaylistGenerator = () => {
             }
         });
         filteredUris = filtered;
-        console.log(filteredUris);
+        // console.log(filteredUris);
     }
 
     async function createPlaylist() {
@@ -124,9 +124,8 @@ const PlaylistGenerator = () => {
             public: true
         })
         .then((response) => {
-            console.log("MAKING PLAYLIST! " + response.id);
+            // console.log("MAKING PLAYLIST! " + response.id);
             playlistId = response.id
-            console.log("hi " + playlistId);
         })
         .catch((err) => {
             console.error(err);
@@ -139,9 +138,6 @@ const PlaylistGenerator = () => {
         for (var i = 0; i < filteredUris.length; i += offset) {
             const uris = filteredUris.slice(i, i + offset);
             await spotifyApi.addTracksToPlaylist(playlistId, uris)
-            .then(() => {
-                console.log("added!");
-            })
             .catch((err) => {
                 console.error(err);
                 console.error("ERROR: Error adding workout tracks to playlist")
@@ -152,12 +148,17 @@ const PlaylistGenerator = () => {
     async function generatePlaylist() {
         setPlaylistLoading(true);
         setPlaylistCreated(false);
+        setFilterError(false);
         await getMyUserId();
         // get saved songs
-        await getMySavedTracks()
+        await getMySavedTracks();
         // filter saved songs
         // create new playlist
-        await createPlaylist();
+        if (savedTracks.length > 0 && filteredUris.length > 0) {
+            await createPlaylist();
+        } else {
+            setFilterError(true);
+        }
         // add songs to playlist
         await addTracksToPlaylist();
         if (playlistId !== "") {
@@ -167,8 +168,10 @@ const PlaylistGenerator = () => {
             setPlaylistLoading(false);
             setPlaylistCreated(true);
             setPlaylistLength(filteredUris.length);
+        } else {
+            setFilterError(true);
+            setPlaylistLoading(false);
         }
-        console.log("help! " + playlistId)
     }
 
     return (
@@ -232,7 +235,7 @@ const PlaylistGenerator = () => {
 
             <Container>
                 <Row className="center">
-                    <InputGroup className="mb-3 w-50" >
+                    <InputGroup className="mb-3 w-50">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-addon1">Playlist Name</InputGroup.Text>
                         </InputGroup.Prepend>
@@ -240,10 +243,13 @@ const PlaylistGenerator = () => {
                             placeholder={defaultPlaylistName}
                             aria-label={defaultPlaylistName}
                             aria-describedby="basic-addon1"
-                            className="w-75"
+                            className="w-50"
                             ref={playlistNameInputRef}
                             onChange={() => setPlaylistName(playlistNameInputRef.current.value)}
                         />
+                        <OverlayTrigger placement="right" overlay={helpPopover}>
+                            <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
+                        </OverlayTrigger>
                     </InputGroup>
                 </Row>
             </Container>
@@ -268,12 +274,28 @@ const PlaylistGenerator = () => {
                             </p>                            
                         </div>
                     }
+                    {
+                        filterError &&
+                        <div>
+                            <p className="lead text-secondary">
+                                Cannot create playlist because you do not have any songs in your Liked Songs
+                                Library that meets the given filter criteria.
+                            </p>                            
+                        </div>
+                    }
                 </Row>
             </Container>
 
         </div>
     )
 };
+
+const helpPopover = (
+    <Popover>
+        <Popover.Title>How does Pumpify work?</Popover.Title>
+        <Popover.Content>Pumpify reads through your entire Liked Songs library on Spotify and adds every song that meets minimum energy, danceability, and tempo requirements to a new playlist. If you have a lot of songs saved to your Liked Songs Library, Pumpify may take a while to load.</Popover.Content>
+    </Popover>
+);
 
 const energyPopover = (
     <Popover>

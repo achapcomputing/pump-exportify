@@ -43,7 +43,7 @@ function App() {
         </h1>
 
         <p id="subtitle" className="lead text-secondary">
-          Generating high-intensity playlists for the most pumped-up workout
+          Generating high-intensity playlists from your Liked Songs for a personalized, pumped-up workout
         </p>
       </header>
 
