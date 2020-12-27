@@ -45,6 +45,8 @@ Builds the app for production to the `build` folder.
 
 In addition to [Create React App](https://github.com/facebook/create-react-app), the application is built using the following tools/libraries:
 
+* [Spotify Web API](https://github.com/JMPerez/spotify-web-api-js) - A 
+lightweight wrapper for all Spotify's endpoints
 * [React](https://reactjs.org/) - A JavaScript library for building user interfaces
 * [Bootstrap 4](https://getbootstrap.com/) - styling and UI components
 * [Font Awesome 5](https://fontawesome.com/) - vector icon set and toolkit

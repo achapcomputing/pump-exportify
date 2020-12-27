@@ -7,10 +7,8 @@ import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import "url-search-params-polyfill"
 
 import Login from 'components/Login'
-import PlaylistTable from "components/PlaylistTable"
 import { getQueryParam } from "helpers"
 import Logout from "components/Logout"
-import FilterSliders from 'components/FilterSliders'
 import PlaylistGenerator from 'components/PlaylistGenerator';
 
 function App() {
