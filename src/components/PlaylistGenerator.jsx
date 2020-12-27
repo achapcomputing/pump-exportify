@@ -3,10 +3,10 @@ import '../index.scss'
 
 import React, { useEffect, useState, createRef, Component } from 'react';
 import { Button, Container, Row, Col, Spinner, Popover, OverlayTrigger, InputGroup, FormControl, Accordion, Card } from "react-bootstrap"
-import RangeSlider from 'react-bootstrap-range-slider';
 import SpotifyWebApi from 'spotify-web-api-js';
 
 import Slider from './Slider.js'
+import PlaylistName from './PlaylistName.js'
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -17,14 +17,22 @@ export default class PlaylistGenerator extends Component {
     this.state = {
       energyValue: 7,
       danceValue: 5,
-      tempoValue: 120
+      tempoValue: 120,
+      playlistName: 'Pumpify Playlist'
     }
     this.updateFilterValue = this.updateFilterValue.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
   }
 
   updateFilterValue(cat, val) {
     this.setState({
       [cat + 'Value']: val
+    })
+  }
+
+  updatePlaylistName(val) {
+    this.setState({
+      playlistName: val
     })
   }
 
@@ -51,6 +59,12 @@ export default class PlaylistGenerator extends Component {
             min='50'
             max='200'
             initialValue='120' />
+
+          <PlaylistName 
+            name={this.updatePlaylistName}
+            defaultName='Pumpify Playlist' 
+            updatePlaylistName={this.updatePlaylistName} />
+
         </Container>
         
       </div>
@@ -250,26 +264,6 @@ export default class PlaylistGenerator extends Component {
 //     return (
 //         <div>
 //             
-//             <Container>
-//                 <Row className="center">
-//                     <InputGroup className="mb-3 w-50">
-//                         <InputGroup.Prepend>
-//                             <InputGroup.Text id="basic-addon1">Playlist Name</InputGroup.Text>
-//                         </InputGroup.Prepend>
-//                         <FormControl
-//                             placeholder={defaultPlaylistName}
-//                             aria-label={defaultPlaylistName}
-//                             aria-describedby="basic-addon1"
-//                             className="w-50"
-//                             ref={playlistNameInputRef}
-//                             onChange={() => setPlaylistName(playlistNameInputRef.current.value)}
-//                         />
-//                         <OverlayTrigger placement="right" overlay={helpPopover}>
-//                             <Button id="infoPopover" size="sm" variant="outline-primary">?</Button>
-//                         </OverlayTrigger>
-//                     </InputGroup>
-//                 </Row>
-//             </Container>
 
 //             <Container className="Generate">
 //                 <Row>
@@ -306,13 +300,6 @@ export default class PlaylistGenerator extends Component {
 //         </div>
 //     )
 // };
-
-// const helpPopover = (
-//     <Popover>
-//         <Popover.Title>How does Pumpify work?</Popover.Title>
-//         <Popover.Content>Pumpify reads through your entire Liked Songs library on Spotify and adds every song that meets minimum energy, danceability, and tempo requirements to a new playlist. If you have a lot of songs saved to your Liked Songs Library, Pumpify may take a while to load.</Popover.Content>
-//     </Popover>
-// );
 
 
 

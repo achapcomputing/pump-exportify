@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Container, Row, Col, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Button, Row, Col, Popover, OverlayTrigger } from 'react-bootstrap';
 import RangeSlider from 'react-bootstrap-range-slider';
 
 import '../App.scss';
-import '../index.scss';
 
 export default class Slider extends Component {
 
@@ -29,8 +28,6 @@ export default class Slider extends Component {
   }
 
   render() {
-
-    
 
     let displayInfo = (cat) => {
       if (cat === 'energy') {
@@ -61,6 +58,7 @@ export default class Slider extends Component {
         </Col>
       </Row>
     )
+
   }
 }
 
